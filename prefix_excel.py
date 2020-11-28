@@ -25,8 +25,8 @@ class ExcellPath:
             df = data[0]
             sheetname = data[1]
             sheetname = sheetname.replace(".", "_")
-            path = "C:/Users/lemat/lempy/poll/data" + "/" + prefa + "/" + sheetname + ".xlsx"
-            dirpath = "C:/Users/lemat/lempy/poll/data" + "/" + prefa
+            path = "C:/Users/lemat/lempy/poll/data" + "/" + prefa + "/prefix/" + sheetname + ".xlsx"
+            dirpath = "C:/Users/lemat/lempy/poll/data" + "/" + prefa + "/prefix/"
             os.makedirs(dirpath, exist_ok=True)
             df.to_excel(path)
 
