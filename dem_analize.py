@@ -42,7 +42,8 @@ class MakeData():
         self.df = df
 
     # 重複をチェックする
-    def chek_dupulicate(self):
+    def check_dupulicate(self):
+        # todo バグフィックス必要。１.重複がなくても削除inputが出る。２.重複削除後の死亡数がおかしくなっている可能性がある
         df = self.df
         dfdu = df.duplicated(subset= ["date", "place"], keep=False)
         if dfdu.empty:
@@ -151,7 +152,7 @@ class MakeTable:
         self.year = 0
         self.city = city
         self.prefa = prefa
-        dirpath = "C:/Users/lemat/lempy/poll/data" + "/" + prefa + "/result"
+        dirpath = "result" + "/" + prefa
         os.makedirs(dirpath, exist_ok=True)
 
     def excess_motality(self, df1, df2):
@@ -195,8 +196,7 @@ class MakeTable:
                 print(self.city + "の" + str(self.year) + str(index) + "月に超過死亡があります。")
             print(dfq)
             o_year = str(s_year) + "_2019vs"
-            path = "C:/Users/lemat/lempy/poll/data/{0}/result/{1}{2}/".format(self.prefa, o_year, str(self.year),
-                                                                              self.city)
+            path = "result/{0}/{1}{2}/".format(self.prefa, o_year, str(self.year), self.city)
             os.makedirs(path, exist_ok=True)
             dem_graph.main(df, self.city, self.prefa, self.year, s_year)
             return(dfq)
@@ -206,7 +206,7 @@ class MakeTable:
     def make_csv(self, s_year):
         df = self.table
         o_year = str(s_year) + "_2019vs"
-        path =  "C:/Users/lemat/lempy/poll/data/{0}/result/{1}{2}/".format(self.prefa, o_year, str(self.year), self.city)
+        path =  "result/{0}/{1}{2}/".format(self.prefa, o_year, str(self.year))
         os.makedirs(path, exist_ok=True)
         file = "{0}{3}{1}{2}.csv".format(path, o_year, str(self.year), self.city)
         print(file)
@@ -232,7 +232,9 @@ class MakeExcessTable:
 
     def make_csv(self, prefa, pref, year, s_year):
         df = self.df
-        file = "data/" + prefa + "/" + pref + "超過死亡" + str(s_year) + "_2019vs" + str(year) + ".csv"
+        file = "result/" + prefa + "/" + pref + "超過死亡" + str(s_year) + "_2019vs" + str(year) + ".csv"
+        dir = "result/{0}/{1}超過死亡{2}_2019vs{3}.csv".format(prefa, pref, str(s_year), str(year))
+        # os.makedirs(dir, exist_ok=True)
         print(file)
         df.to_csv(file, encoding="shift_jis")
 
@@ -243,7 +245,7 @@ def main():
     print(pref.pref) #注意喚起用
     # 分析の準備をする
     bind = MakeData()
-    bind.chek_dupulicate()
+    bind.check_duplicate()
     bind.divide_df()
     select = SelectPlece(bind.df)
     execss_dfs = []
