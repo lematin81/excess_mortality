@@ -23,7 +23,7 @@ class Graph:
         ax.set_xlabel = "月"
         fig.legend(loc="upper right")
         #plt.show()
-        file = "C:/Users/lemat/lempy/poll/data/{0}/result/{2}_2019vs{3}/graph_{1}{2}_2019vs{3}.png".format(prefa, city, s_year, year)
+        file = "result/{0}/{2}_2019vs{3}/graph_{1}{2}_2019vs{3}.png".format(prefa, city, s_year, year)
         print(file)
         plt.savefig(file)
 

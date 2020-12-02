@@ -24,7 +24,7 @@ class MakeData():
     s_year = 0
 
     def __init__(self):
-        path = tkinter.filedialog.askopenfilename(initialdir="./", multiple=True)  #ファイルダイアログ
+        path = tkinter.filedialog.askopenfilename(initialdir="data/", multiple=True)  #ファイルダイアログ
         dfs = []  #リストを順に開けていく
         for p in path:
             df = pandas.read_csv(p, encoding="shift_jis")
@@ -42,21 +42,21 @@ class MakeData():
         self.df = df
 
     # 重複をチェックする
-    def check_dupulicate(self):
-        # todo バグフィックス必要。１.重複がなくても削除inputが出る。２.重複削除後の死亡数がおかしくなっている可能性がある
+    def check_duplicate(self):
         df = self.df
-        dfdu = df.duplicated(subset= ["date", "place"], keep=False)
-        if dfdu.empty:
-            pass
-        else:
+        dfdu = df[df.duplicated(subset= ["date", "place"])]
+        if len(dfdu) != 0:
             print("データに重複があります")
             pandas.set_option("display.max_rows", None)
-            print(df[df.duplicated(subset= ["date", "place"], keep=False)])
+            print(df[df.duplicated(subset=["date", "place"], keep=False)])
             u_c = input("重複データの片方を削除しますか？(Y/N) :").lower()
             if u_c == "y":
-                self.df  = df.drop_duplicates(subset= ["date", "place"])
+                self.df = df.drop_duplicates(subset=["date", "place"])
             else:
+                print("重複データがあると計算を正確に行えません。")
                 sys.exit(0)
+        else:
+            pass
 
 
     # 日付をひと月前にリセットする。データを「平年」と「検討年」に分ける。
@@ -241,8 +241,8 @@ class MakeExcessTable:
 
 def main():
     #分析する県を決める
-    pref = Aichi()
-    print(pref.pref) #注意喚起用
+    pref = Aomori()
+    print("クラスは{}にセットされています。".format(pref.pref))
     # 分析の準備をする
     bind = MakeData()
     bind.check_duplicate()

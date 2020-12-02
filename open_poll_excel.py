@@ -79,7 +79,7 @@ class SelectSheet:
 
 def file_open():
     typ =[("エクセル","xlsx"), ("エクセル", "xls")]
-    OeStore.path = tkinter.filedialog.askopenfilename(initialdir="./", filetypes=typ, multiple=True)
+    OeStore.path = tkinter.filedialog.askopenfilename(initialdir="data/", filetypes=typ, multiple=True)
 
 
 def main(keywords):

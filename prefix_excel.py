@@ -25,8 +25,8 @@ class ExcellPath:
             df = data[0]
             sheetname = data[1]
             sheetname = sheetname.replace(".", "_")
-            path = "C:/Users/lemat/lempy/poll/data" + "/" + prefa + "/prefix/" + sheetname + ".xlsx"
-            dirpath = "C:/Users/lemat/lempy/poll/data" + "/" + prefa + "/prefix/"
+            path = "data" + "/" + prefa + "/prefix/" + sheetname + ".xlsx"
+            dirpath = "data" + "/" + prefa + "/prefix/"        
             os.makedirs(dirpath, exist_ok=True)
             df.to_excel(path)
 
@@ -37,7 +37,7 @@ class SeparateSheets:
 
     def read_excel(self):
         typ = [("エクセル", "xlsx"), ("エクセル", "xls")]
-        path = tkinter.filedialog.askopenfilename(initialdir="./", filetypes=typ, multiple=True)
+        path = tkinter.filedialog.askopenfilename(initialdir="data/", filetypes=typ, multiple=True)
         for p in path:
             book = pandas.ExcelFile(p)
             list_of_sheetnames = book.sheet_names
@@ -48,7 +48,7 @@ class SeparateSheets:
 
     def read_csv(self):
         typ = [("CSV", "csv")]
-        path = tkinter.filedialog.askopenfilename(initialdir="./", filetypes=typ, multiple=True)
+        path = tkinter.filedialog.askopenfilename(initialdir="data/", filetypes=typ, multiple=True)
         for p in path:
             c_code = moji_code.check_encoding(p)[2]
             df = pandas.read_csv(p, dtype="object", encoding=c_code)
@@ -581,7 +581,7 @@ def aichi2():
     prefix_two_columns.main(list_of_dfs, pref.pref, pref.prefa)
 
 if __name__ == "__main__":
-    aichi2()
+    Aomori()
 
 
 

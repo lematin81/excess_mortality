@@ -41,17 +41,17 @@ class Aomori:
         aomori = Prefecture()
         aomori.set(prefdata)
 
-    # キーワードを修正する
+    # キーワードを修正する（必要がないので、何もしない）
     def modify_keywords(self, keywords):
         return(keywords)
 
-    # データフレームを修正する
+    # データフレームを修正する（必要がないので、何もしない）
     def modify(self, df):
-        pass
+        return(df)
 
     #  関数を呼び出す
     def calc_pref(self, date, df):
-        df = for_pref1(self.df, date, self.pref)
+        df = for_pref1(df, date, self.pref)
         return(df)
 
 class Hyogo:
@@ -298,7 +298,6 @@ class Aichi:
     #
     def modify(self, df):
         df = df.replace("増減数", "総数")
-        # todo 翌月のデータにする
         return (df)
 
     # 必要がないので、何もしない
