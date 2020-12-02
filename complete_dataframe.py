@@ -54,7 +54,6 @@ def make_csv(prefa):  #csvファイルを作成する
     m = str(m1) + "_" + str(m2)
     file = "data/" + prefa + "/" + prefa + m + ".csv"
     print(file)
-    # dfのcode行の型を確認。問題ない。csvファイルがおかしく見えるのはexcel側の問題。
     df.to_csv(file, encoding="shift_jis")
 
 def set_date(): #月末付けの日付を修正する
@@ -69,7 +68,7 @@ def set_date(): #月末付けの日付を修正する
         df["date"] = df["date"].apply(f_nextmonth)
         f_firstday = lambda x: x + relativedelta(day=1)  # 日付を１日にする（はっきりさせるため）
         df["date"] = df["date"].apply(f_firstday)
-        # todo 日付の形式を修正する（plefix_excelにも適用）pandas.to_datetimeについて調べる
+        # 日付の形式を修正する
         df["date"] = df["date"].dt.strftime("%Y-%m-%d")
         CdStore.df = df
 

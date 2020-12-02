@@ -26,6 +26,7 @@ def shape_data(df, list_of_index, list_of_keywords):
     # インデックス行をリストにする
     get_date = list(df.columns.values)
     # 「現在」 という言葉が入っている要素を探す
+    get_date = [str(day) for day in get_date]
     nen_getsu = [s for s in get_date if ("現在" in s) or ("平成" in s) or ("令和" in s)]
     # インデックスに入っていない場合は、3行目までを探す
     if not nen_getsu:
@@ -70,14 +71,16 @@ def shape_data(df, list_of_index, list_of_keywords):
             cell_addres = []
             for p in range(len(list_of_cell[j][0])):#見出しの位置を取得するル―プ
                 cell_addres.append(list_of_cell[j][0][p][1])
-                index_for_df.append(cell_addres)
+            index_for_df.append(cell_addres)
         index_for_dfn = []
         for p in range(len(list_of_index)): #データフレームサブセットで使う列名リストを作るためのループ
             index_for_dfn.append(index_for_df[p][i])
         dfn = df.loc[:, index_for_dfn]  # データフレームサブセットを生成
+        pandas.set_option("display.max_columns", None)
         for k in range(len(list_of_index)):#データフレームサブセットの列名を変更するループ。
             for o in range(len(list_of_cell[k][0])):#K番目のキーワードが出てくる列名をすべて書き換える
                 dfn = dfn.rename(columns={index_for_df[k][o]: list_of_index[k]})
+                pandas.set_option("display.max_columns", None)
         list_of_dfs.append(dfn)#データフレームサブセットをリストに収容する
         i += 1
     # サブセットを縦に結合してデータフレームを作る
