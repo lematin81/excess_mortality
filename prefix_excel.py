@@ -26,7 +26,7 @@ class ExcellPath:
             sheetname = data[1]
             sheetname = sheetname.replace(".", "_")
             path = "data" + "/" + prefa + "/prefix/" + sheetname + ".xlsx"
-            dirpath = "data" + "/" + prefa + "/prefix/"
+            dirpath = "data" + "/" + prefa + "/prefix/"        
             os.makedirs(dirpath, exist_ok=True)
             df.to_excel(path)
 
