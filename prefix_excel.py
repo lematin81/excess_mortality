@@ -25,22 +25,25 @@ class ExcellPath:
             df = data[0]
             sheetname = data[1]
             sheetname = sheetname.replace(".", "_")
-            path = "C:/Users/lemat/lempy/poll/data" + "/" + prefa + "/prefix/" + sheetname + ".xlsx"
-            dirpath = "C:/Users/lemat/lempy/poll/data" + "/" + prefa + "/prefix/"
+            path = "data" + "/" + prefa + "/prefix/" + sheetname + ".xlsx"
+            dirpath = "data" + "/" + prefa + "/prefix/"
             os.makedirs(dirpath, exist_ok=True)
             df.to_excel(path)
+        print("{}に出力しました。".format(dirpath))
 
 
-# シートを別々のブックに分解するクラス
+# ブックからシートを取り出す
 class SeparateSheets:
     sheetdata = []
 
     def read_excel(self):
         typ = [("エクセル", "xlsx"), ("エクセル", "xls")]
-        path = tkinter.filedialog.askopenfilename(initialdir="./", filetypes=typ, multiple=True)
+        path = tkinter.filedialog.askopenfilename(initialdir="data/", filetypes=typ, multiple=True)
+        print("ファイルを処理しています")
         for p in path:
             book = pandas.ExcelFile(p)
             list_of_sheetnames = book.sheet_names
+            print("{}枚のシートを処理しています".format(len(list_of_sheetnames)))
             for sheet in list_of_sheetnames:
                 df = pandas.read_excel(p, sheet_name=sheet, dtype="object")
                 self.sheetdata.append([df, sheet])
@@ -48,7 +51,7 @@ class SeparateSheets:
 
     def read_csv(self):
         typ = [("CSV", "csv")]
-        path = tkinter.filedialog.askopenfilename(initialdir="./", filetypes=typ, multiple=True)
+        path = tkinter.filedialog.askopenfilename(initialdir="data/", filetypes=typ, multiple=True)
         for p in path:
             c_code = moji_code.check_encoding(p)[2]
             df = pandas.read_csv(p, dtype="object", encoding=c_code)
@@ -140,7 +143,6 @@ class ModifyExel:
             for sheet in list_of_sheetnames:
                 df = pandas.read_excel(p, sheet_name=sheet, dtype="object")
                 # 年月データをまとめる
-                #print(df.iat[1, 0], df.iat[1, 1])
                 df.iat[0, 0] = df.iat[1, 0] + df.iat[1, 1]
                 df = df.drop(1)
                 # 年月日欄を明示
@@ -464,7 +466,6 @@ def hyogo():
     pref = Hyogo()
     print(pref.pref)
     open = SeparateSheets()
-    print("ファイルを処理します。")
     open.read_excel()
     write = ExcellPath()
     print("ファイルを書き込んでいます。")
@@ -517,9 +518,8 @@ def tokyo2(): #年単位でまとまっている月別データを処理する
 
 def chiba():
     pref = Chiba()
-    print(pref.pref) # 注意喚起用
+    print("{}モードになっています。".format(pref.pref)) # 注意喚起用
     open = SeparateSheets()
-    print("ファイルを処理します。")
     open.read_excel()
     for sheet in open.sheetdata:
         o2 = ModifyExel()
@@ -546,7 +546,7 @@ def kanagawa():
 def saitama():
     pref = Saitama()
     print(pref.pref)
-    print("2007(平成17）年2月のファイルに原因不明のエラーがあります。手動で修正してください。")
+    print("2005(平成17）年2月のファイルに原因不明のエラーがあります。手動で修正してください。")
     print("2007（平成19）年9月分以降分には、このスクリプトによる処理は必要ありません。")
     open = SeparateSheets()
     print("ファイルを処理します。")
@@ -581,8 +581,4 @@ def aichi2():
     prefix_two_columns.main(list_of_dfs, pref.pref, pref.prefa)
 
 if __name__ == "__main__":
-    aichi2()
-
-
-
-
+    aichi()

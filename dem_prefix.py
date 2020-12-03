@@ -4,7 +4,7 @@
 
 import open_poll_excel
 import read_excel
-from read_excel import Date
+from read_excel import Date_and_code
 import complete_dataframe
 from set_pref import * #都道府県パターンのインポート
 
@@ -39,23 +39,23 @@ class Shape(Course): #データ整形を動かすクラス。県別にクラス�
         i = 1
         print("データを整形しています（少しお待ちください）。")
         for df in temp_list_of_df:
-            df = pr.modify(df)
+            df = pref.modify(df)
             df = read_excel.shape_data(df, sh.index, sh.keywords)
-            df = pr.calc_pref(Date.date, df)
-            self.prefa = pr.prefa
-            df = read_excel.add_gcode(df, pr.pref)
+            df = pref.calc_pref(Date_and_code.date_of_data, df)
+            self.prefa = pref.prefa
+            df = read_excel.add_gcode(df, pref.pref)
             DeStore.list_of_shaped_df.append(df)
             print("{}件中、{}件を処理しました。".format(t,i))
             i += 1
 
-
-pr = Aichi()
-print(pr.pref) #注意喚起用
-sh = Shape()
-sh.set_motal()
-sh.keywords = pr.modify_keywords(sh.keywords)
-sh.shape()
-complete_dataframe.main(DeStore.list_of_shaped_df, pr.prefa)
+if __name__ == "__main__":
+    pref = Saitama()
+    print("クラスは{}にセットされています。".format(pref.pref)) #注意喚起用
+    sh = Shape()
+    sh.set_motal()
+    sh.keywords = pref.modify_keywords(sh.keywords)
+    sh.shape()
+    complete_dataframe.main(DeStore.list_of_shaped_df, pref.prefa)
 
 
 

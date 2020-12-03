@@ -60,9 +60,9 @@ def set_date(): #月末付けの日付を修正する
     df = CdStore.df
     # 月末かどうかを判別する
     date_d = df.at[0, "date"]
+    print(date_d, type(date_d))
     day = date_d[-2:]
     if int(day) == 28:
-        print(day)
         df["date"] = pandas.to_datetime(df["date"])  # date列を日付データとして使う
         f_nextmonth = lambda x: x + relativedelta(months=+1)  # 月を一月後にする（同月のデータのため）
         df["date"] = df["date"].apply(f_nextmonth)
