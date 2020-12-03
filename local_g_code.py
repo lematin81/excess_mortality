@@ -6,9 +6,9 @@ input_local_g_numモジュールによってあらかじめ作成されたjson�
 import json
 
 class LoadGovData: #jsonファイルを読み込んでデータを生成するクラス。
-    path = "c:/Users/lemat/lempy/poll/local_goverment_code.json"
-    path2 = "c:/Users/lemat/lempy/poll/changed_local_goverment_code.json"
-    path3 = "c:/Users/lemat/lempy/poll/added_local_goverment_code.json"
+    path = "local_goverment_code.json"
+    path2 = "changed_local_goverment_code.json"
+    path3 = "added_local_goverment_code.json"
     datafile = "json"
 
     # 市町村コードの出力

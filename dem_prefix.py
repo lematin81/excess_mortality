@@ -48,6 +48,7 @@ class Shape(Course): #データ整形を動かすクラス。県別にクラス�
             print("{}件中、{}件を処理しました。".format(t,i))
             i += 1
 
+            
 if __name__ == "__main__":
     pref = Saitama()
     print("クラスは{}にセットされています。".format(pref.pref)) #注意喚起用
@@ -56,6 +57,7 @@ if __name__ == "__main__":
     sh.keywords = pref.modify_keywords(sh.keywords)
     sh.shape()
     complete_dataframe.main(DeStore.list_of_shaped_df, pref.prefa)
+
 
 
 

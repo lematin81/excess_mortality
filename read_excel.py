@@ -80,9 +80,11 @@ def shape_data(df, list_of_index, list_of_keywords):
         for p in range(len(list_of_index)): #データフレームサブセットで使う列名リストを作るためのループ
             index_for_dfn.append(index_for_df[p][i])
         dfn = df.loc[:, index_for_dfn]  # データフレームサブセットを生成
+        pandas.set_option("display.max_columns", None)
         for k in range(len(list_of_index)):#データフレームサブセットの列名を変更するループ。
             for o in range(len(list_of_cell[k][0])):#K番目のキーワードが出てくる列名をすべて書き換える
                 dfn = dfn.rename(columns={index_for_df[k][o]: list_of_index[k]})
+                pandas.set_option("display.max_columns", None)
         list_of_dfs.append(dfn)#データフレームサブセットをリストに収容する
         i += 1
     # サブセットを縦に結合してデータフレームを作る
