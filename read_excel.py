@@ -6,10 +6,12 @@ import open_poll_excel
 import pandas
 import globalize
 import local_g_code
+from datetime import datetime
+from datetime import date
 
 
-class Date:
-    date = 0
+class Date_and_code:
+    date_of_data = 0
 
 def add_gcode(df, pref): #自治体コードを追加する
     list_of_local_gov = list(df.index) #自治体名が行名になっているのでリストで取得
@@ -35,8 +37,10 @@ def shape_data(df, list_of_index, list_of_keywords):
             nen_getsu = [s for s in get_date if ("現在" in s) or ("平成" in s) or ("令和" in s)]
             break
     # 和暦を西暦に換算する
-    date = globalize.wareki(str(nen_getsu))
-    Date.date = date
+    d_a = globalize.wareki(str(nen_getsu))
+    #d_a = datetime.strptime(d_a, "%Y-%m-%d")
+    #d_a = d_a.date()
+    Date_and_code.date_of_data = d_a
     # 先頭から5行をスライスして90度回転する
     df_check = df[:5]
     #print(df_check)
@@ -100,7 +104,7 @@ def shape_data(df, list_of_index, list_of_keywords):
     df = df.astype({"total": "int", "death": "int"}) #小数点表示をなくすために整数型に変換する
     df = df.replace("[ケ]", "ヶ", regex=True) #表記を総務省形式にそろえる
     df = df.set_index("place") #自治体名をインデックスにする
-    df["date"] = date #新しい列を作って日付を入れる
+    df["date"] = Date_and_code.date_of_data #新しい列を作って日付を入れる
     return(df)
 
 '''def analyse_file(df):

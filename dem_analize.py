@@ -241,7 +241,7 @@ class MakeExcessTable:
 
 def main():
     #分析する県を決める
-    pref = Aomori()
+    pref = Aichi()
     print("クラスは{}にセットされています。".format(pref.pref))
     # 分析の準備をする
     bind = MakeData()

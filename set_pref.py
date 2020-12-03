@@ -204,13 +204,13 @@ class Chiba:
         df.iat[3, 2] = "千葉県"
         return (df)
 
-    # データフレームの日付を修正する
+    # データフレームの日付を修正する(complete_dataframe.pyでやることにしたので、廃止）
     def calc_pref(self, date, df):
-        df["date"] = pandas.to_datetime(df["date"])  # date列を日付データとして使う
+        '''df["date"] = pandas.to_datetime(df["date"])  # date列を日付データとして使う
         f_nextmonth = lambda x: x + relativedelta(months=+1)  # 月を一月後にする（同月のデータのため）
         df["date"] = df["date"].apply(f_nextmonth)
         f_firstday = lambda x: x + relativedelta(day=1) # 日付を１日にする（はっきりさせるため）
-        df["date"] = df["date"].apply(f_firstday)
+        df["date"] = df["date"].apply(f_firstday)'''
         return (df)
 
 
@@ -238,13 +238,13 @@ class Kanagawa:
         df = df.replace("県計", self.pref)
         return (df)
 
-    # データフレームの日付を修正する
+    # データフレームの日付を修正する(complete_dataframe.pyでやることにしたので、廃止）
     def calc_pref(self, date, df):
-        df["date"] = pandas.to_datetime(df["date"])  # date列を日付データとして使う
+        '''df["date"] = pandas.to_datetime(df["date"])  # date列を日付データとして使う
         f_nextmonth = lambda x: x + relativedelta(months=+1)  # 月を一月後にする（同月のデータのため）
         df["date"] = df["date"].apply(f_nextmonth)
         f_firstday = lambda x: x + relativedelta(day=1)  # 日付を１日にする（はっきりさせるため）
-        df["date"] = df["date"].apply(f_firstday)
+        df["date"] = df["date"].apply(f_firstday)'''
         return (df)
 
 class Saitama:
